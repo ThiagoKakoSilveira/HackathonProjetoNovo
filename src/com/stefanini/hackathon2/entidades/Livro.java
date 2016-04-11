@@ -1,10 +1,15 @@
 package com.stefanini.hackathon2.entidades;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Livro {
@@ -18,6 +23,9 @@ public class Livro {
 	private String autor;
 	@Column(nullable=false)
 	private Integer paginas;
+	@OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+	@Column(name="idLivro")
+	private List<Emprestimo>emprestimo;
 	
 	public Livro() {
 	}

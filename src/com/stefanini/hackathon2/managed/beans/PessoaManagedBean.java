@@ -1,8 +1,6 @@
 package com.stefanini.hackathon2.managed.beans;
 
-import java.util.ArrayList;
 import java.util.List;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
@@ -22,7 +20,7 @@ public class PessoaManagedBean {
 	private PessoaServico servico;
 	
 	public PessoaManagedBean(){
-		listaPessoas = new ArrayList<>();		
+		
 	}
 	
 	public void salvar(){
@@ -68,7 +66,4 @@ public class PessoaManagedBean {
 	public void setListaPessoas(List<Pessoa> listaPessoas) {
 		this.listaPessoas = listaPessoas;
 	}
-	
-	
-
 }

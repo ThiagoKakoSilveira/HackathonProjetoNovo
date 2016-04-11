@@ -39,5 +39,15 @@ public class PessoaRepositorio {
 	public Pessoa pesquisarPorId(Integer id){
 		return entityManager.find(Pessoa.class, id);
 	}
+	
+	public Pessoa pesquisarPorCpf(String cpf){
+		return entityManager.find(Pessoa.class, cpf);
+	}
+
+	public boolean existePessoaComCpf(String cpf) {
+		String sql = "select count(1) from " + Pessoa.class.getSimpleName() + " p where p.cpf = '" + cpf + "'";
+		int quantidade = (int) entityManager.createQuery(sql).getSingleResult();
+		return (quantidade > 0);
+	}
 
 }
