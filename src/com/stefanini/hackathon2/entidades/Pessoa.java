@@ -1,36 +1,35 @@
 package com.stefanini.hackathon2.entidades;
 
-import java.util.List;
+import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 
 @Entity
-public class Pessoa {
+@Inheritance(strategy = InheritanceType.JOINED)
+public class Pessoa implements Serializable{
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer id;
+	protected Integer id;
 	@Column(nullable=false)
-	private String nome;
+	protected String nome;
 	@Column(nullable=false, unique=true)
-	private String cpf;
+	protected String cpf;
 	@Column(nullable=false)
-	private String telefone;
+	protected String telefone;
 	@Column(nullable=false)
-	private String endereco;
+	protected String endereco;
 	@Column(nullable=false)
-	private Integer idade;
-	@OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
-	@Column(name="idPessoa")
-	private List<Emprestimo> listaEmprestimos;
-	
-	
+	protected String email;
+//	@OneToOne(mappedBy="pessoa")
+//	private Emprestimo emprestimo;
+		
 	public Pessoa(){
 		
 	}
@@ -66,15 +65,7 @@ public class Pessoa {
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
-	
-	public Integer getIdade() {
-		return idade;
-	}
-
-	public void setIdade(Integer idade) {
-		this.idade = idade;
-	}
-	
+			
 	public Integer getId() {
 		return id;
 	}
@@ -82,22 +73,30 @@ public class Pessoa {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	@Override
-	public final int hashCode() {
-		final int prime = 27;
+	public int hashCode() {
+		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		result = prime * result + ((cpf == null) ? 0 : cpf.hashCode());
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((endereco == null) ? 0 : endereco.hashCode());
-		result = prime * result + ((telefone == null) ? 0 : telefone.hashCode());
-		result = prime * result + ((idade == null) ? 0 : idade.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		result = prime * result + ((telefone == null) ? 0 : telefone.hashCode());
 		return result;
 	}
-	
+
 	@Override
-	public final boolean equals(Object obj) {
+	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
 		if (obj == null)
@@ -110,6 +109,16 @@ public class Pessoa {
 				return false;
 		} else if (!cpf.equals(other.cpf))
 			return false;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		if (endereco == null) {
+			if (other.endereco != null)
+				return false;
+		} else if (!endereco.equals(other.endereco))
+			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -120,23 +129,11 @@ public class Pessoa {
 				return false;
 		} else if (!nome.equals(other.nome))
 			return false;
-		if (endereco == null) {
-			if (other.endereco != null)
-				return false;
-		} else if (!endereco.equals(other.endereco))
-			return false;		
-		if (idade == null) {
-			if (other.idade != null)
-				return false;
-		} else if (!idade.equals(other.idade))
-			return false;		
 		if (telefone == null) {
 			if (other.telefone != null)
 				return false;
 		} else if (!telefone.equals(other.telefone))
 			return false;
 		return true;
-	}
-	
-	
+	}	
 }

@@ -25,17 +25,21 @@
 								value="#{emprestimoManagedBean.emprestimo.pessoa.cpf}" />
 							<p:message for="cpf" />
 		
-							<p:outputLabel for="livro" value="Livro:"/>
-							<p:selectOneMenu id="livro" converter="conversorCombobox" value="#{emprestimoManagedBean.emprestimo.livro}">
+							<p:outputLabel for="livroSelect" value="Livro:"/>
+							<p:selectOneMenu id="livroSelect" converter="conversorCombobox" 
+							value="#{emprestimoManagedBean.emprestimo.livro}">
 								<f:selectItem itemLabel="selecione um livro" itemValue=""/>
-								<f:selectItems value="#{livroManagedBean.listaDeLivrosCadastrados}" var="livro" itemLabel="#{livro.nome}" itemValue="#{livro}" />
+								<f:selectItems value="#{livroManagedBean.listaDeLivrosCadastrados}" var="livro" 
+								itemLabel="#{livro.nome}" itemValue="#{livro}" />
 							</p:selectOneMenu>
-							<p:message for="livro" />
+							<p:message for="livroSelect" />
 						
 						</p:panelGrid>
 					
-						<p:commandButton value="Salvar" process="@form" update="@form tabelaDeEmprestimo" action="#{emprestimoManagedBean.salvar()}" icon="fa fa-fw fa-save" />
-						<p:commandButton value="Limpar" process="@this" update="@form" action="#{emprestimoManagedBean.limpar()}" icon="fa fa-fw fa-eraser" />
+						<p:commandButton value="Salvar" process="@form" update="@form tabelaDeEmprestimo" 
+							action="#{emprestimoManagedBean.salvar()}" icon="fa fa-fw fa-save" />
+						<p:commandButton value="Limpar" process="@this" update="@form" action="#{emprestimoManagedBean.limpar()}" 
+							icon="fa fa-fw fa-eraser" />
 					</h:form>
 					<p:dataTable id="tabelaDeEmprestimo" var="emprestado" value="#{emprestimoManagedBean.listaDeEmprestimos}"
 						emptyMessage="Não existem empréstimos cadastrados" style="padding-top:20px;">
@@ -49,8 +53,10 @@
 				    	    <h:outputText value="#{emprestado.livro.nome}" />
 					    </p:column>					    
 					    <p:column headerText="Ações" style="text-align: center">
-					    	<p:commandButton icon="fa fa-fw fa-edit" title="Editar Empréstimo" update="emprestimoForm" action="#{emprestimoManagedBean.setEmprestimo(emprestado)}" />
-					    	<p:commandButton icon="fa fa-fw fa-trash" title="Deletar Empréstimo" update="tabelaDeEmprestimo emprestimoForm" action="#{emprestimoManagedBean.deletar(emprestado)}">
+					    	<p:commandButton icon="fa fa-fw fa-edit" title="Editar Empréstimo" update="emprestimoForm" 
+					    	action="#{emprestimoManagedBean.setEmprestimo(emprestado)}" />
+					    	<p:commandButton icon="fa fa-fw fa-trash" title="Devolver Empréstimo" 
+					    	update="tabelaDeEmprestimo emprestimoForm" action="#{emprestimoManagedBean.devolver(emprestado)}">
 					    		<p:confirm header="Confirmação" message="Deseja deletar o Empréstimo?" icon="ui-icon-alert" />
 					    	</p:commandButton>
 					    	

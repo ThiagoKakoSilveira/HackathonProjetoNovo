@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui">
+	  <!--  xmlns:pe="http://primefaces.org/ui/extensions"-->
+	  
+<ui:composition template="/WEB-INF/modelos/padrao.xhtml">
+		<ui:define name="conteudo">
+			<p:layout>
+				<p:layoutUnit position="north" style="text-align: center;">
+					<p:outputLabel style="font-size: 30px;" value="Cadastro de Funcionários"/>					
+				</p:layoutUnit>
+				
+				<p:layoutUnit position="center">
+
+					<h:form id="funcionarioForm">				
+						<p:growl id="growl" showDetail="true" sticky="false" life="4000" />  
+						
+						<p:panelGrid columns="3">
+						
+							<p:outputLabel for="nome" value="Nome:"/>
+							<p:inputText id="nome" requiredMessage="Campo obrigatório" required="true" 
+							value="#{funcionarioManagedBean.funcionario.nome}" />
+							<p:message for="nome" />
+		
+							<p:outputLabel for="cpf" value="CPF:"/>
+							<p:inputMask id="cpf" requiredMessage="Campo obrigatório" required="true" 
+							mask="999.999.999-99" value="#{funcionarioManagedBean.funcionario.cpf}" />
+							<p:message for="cpf" />
+						
+							<p:outputLabel for="telefone" value="Telefone:"/>
+							<p:inputMask id="telefone" mask="(99) 9999-9999" 
+							requiredMessage="Campo obrigatório" required="true"
+							value="#{funcionarioManagedBean.funcionario.telefone}"/>
+							<p:message for="telefone" />
+							
+							<p:outputLabel for="endereco" value="Endereço:"/>
+							<p:inputText id="endereco" requiredMessage="Campo obrigatório" required="true" 
+							value="#{funcionarioManagedBean.funcionario.endereco}" />
+							<p:message for="endereco" />
+							
+							<p:outputLabel for="email" value="Email: "/>
+							<p:inputText id="email" value="#{funcionarioManagedBean.funcionario.email}">
+                				<f:validator validatorId="emailValidator" />
+            				</p:inputText>
+							<p:message for="email" />
+							
+							<p:outputLabel for="salario" value="Salário:" />							
+							<p:inputText id="salario" requiredMessage="Campo obrigatório" required="true"
+							value="#{funcionarioManagedBean.funcionario.salario}" />
+							<p:message for="email" />
+							
+
+							<p:outputLabel for="usuario" value="Usuário:" />
+							<p:inputText id="usuario" placeholder="Login de acesso"
+							requiredMessage="Campo obrigatório" required="true"
+							value="#{funcionarioManagedBean.funcionario.login.login}" />
+							<p:message for="usuario" />
+							
+							<h:outputLabel for="senha1" value="Senha:" />
+							<p:password id="senha1" placeholder="Senha"
+							value="#{funcionarioManagedBean.funcionario.login.senha}"
+							validatorMessage="Senhas devem ser iguais"
+							promptLabel="Use letras e números" weakLabel="Segurança fraca"
+							goodLabel="Segurança média" strongLabel="Segurança forte"
+							match="senha2" label="Senha: " required="true" feedback="true"
+							inline="true" />
+							<p:message for="senha1"/>
+							
+							<h:outputLabel for="senha2" value="Repita a senha:" />
+							<p:password id="senha2" placeholder="Repita a senha"
+							value="#{funcionarioManagedBean.funcionario.login.senha}"
+							label="Repita a senha: " required="true" feedback="true"
+							inline="true" />
+							<p:message for="senha2"/>
+													
+						</p:panelGrid>
+					
+						<p:commandButton value="Salvar" process="@form" update="@form tabelaDeFuncionarios" 
+						action="#{funcionarioManagedBean.salvar()}" icon="fa fa-fw fa-save" />
+						<p:commandButton value="Limpar" process="@this" update="@form" 
+						action="#{funcionarioManagedBean.limpar()}" icon="fa fa-fw fa-eraser" />
+					</h:form>
+					
+					<p:dataTable id="tabelaDeFuncionarios" var="funcionario" value="#{funcionarioManagedBean.listaFuncionarios}"
+						emptyMessage="Não existem funcionarios cadastrados" style="padding-top:20px;">
+				<!--  	<p:column headerText="Id">
+				    	    <h:outputText value="#{pessoa.id}" />
+					    </p:column>-->
+					    <p:column headerText="Nome" style="text-align: center">
+				    	    <h:outputText value="#{funcionario.nome}" />
+					    </p:column>
+					    <p:column headerText="CPF" width="150">
+				    	    <h:outputText value="#{funcionario.cpf}" />
+					    </p:column>
+					    <p:column headerText="Telefone" width="150">
+				    	    <h:outputText value="#{funcionario.telefone}" />
+					    </p:column>
+					    <p:column headerText="Endereço">
+				    	    <h:outputText value="#{funcionario.endereco}" />
+					    </p:column>
+					    <p:column headerText="Email" width="300">
+				    	    <h:outputText value="#{funcionario.email}" />
+					    </p:column>
+					    <p:column headerText="Ações" style="text-align: center">
+					    	<p:commandButton icon="fa fa-fw fa-edit" title="Editar Funcionario" update="funcionarioForm" 
+					    	action="#{funcionarioManagedBean.setFuncionario(funcionario)}" />
+					    	<p:commandButton icon="fa fa-fw fa-trash" title="Deletar Funcionario" update="tabelaDefuncionarios funcionarioForm" 
+					    	action="#{funcionarioManagedBean.deletar(funcionario)}">
+					    		<p:confirm header="Confirmação" message="Deseja deletar esse Funcionário?" icon="ui-icon-alert" />
+					    	</p:commandButton>
+					    	
+					    	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+						        <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+						        <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+						    </p:confirmDialog>
+					    </p:column>
+					</p:dataTable>
+				
+				</p:layoutUnit>
+				
+			</p:layout>
+		</ui:define>
+	</ui:composition>
+</html>

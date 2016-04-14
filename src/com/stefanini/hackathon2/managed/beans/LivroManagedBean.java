@@ -24,6 +24,7 @@ public class LivroManagedBean {
 	}
 	
 	public void salvar() {
+		
 		servico.salvar(getLivro());
 		Mensageiro.notificaInformacao("Parabéns!", "Livro salvo com sucesso!");
 		carregaListaDeLivros();

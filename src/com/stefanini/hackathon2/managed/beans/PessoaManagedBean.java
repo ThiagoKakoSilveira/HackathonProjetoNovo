@@ -25,14 +25,14 @@ public class PessoaManagedBean {
 	
 	public void salvar(){
 		servico.salvar(getPessoa());
-		Mensageiro.notificaInformacao("Parabéns!", "Pessoa cadastrada com sucesso!");
+		Mensageiro.notificaInformacao("Parabéns!", "Cliente cadastrada com sucesso!");
 		carregaListaDePessoas();
 		limpar();
 	}
 	
 	public void deletar(Pessoa pessoa){
 		servico.deletar(pessoa);
-		Mensageiro.notificaInformacao("Parabéns!", "Pessoa deletada com sucesso");
+		Mensageiro.notificaInformacao("Parabéns!", "Cliente deletada com sucesso");
 		carregaListaDePessoas();
 		limpar();
 	}
@@ -65,5 +65,5 @@ public class PessoaManagedBean {
 
 	public void setListaPessoas(List<Pessoa> listaPessoas) {
 		this.listaPessoas = listaPessoas;
-	}
+	}	
 }

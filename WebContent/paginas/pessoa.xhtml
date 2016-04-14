@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui">
 	
 	<ui:composition template="/WEB-INF/modelos/padrao.xhtml">
 		<ui:define name="conteudo">
@@ -26,13 +26,14 @@
 							<p:message for="nome" />
 		
 							<p:outputLabel for="cpf" value="CPF:"/>
-							<p:inputText id="cpf" requiredMessage="Campo obrigatório" required="true" 
-								value="#{pessoaManagedBean.pessoa.cpf}" />
+							<p:inputMask id="cpf" requiredMessage="Campo obrigatório" required="true" 
+								mask="999.999.999-99" value="#{pessoaManagedBean.pessoa.cpf}" />
 							<p:message for="cpf" />
 						
 							<p:outputLabel for="telefone" value="Telefone:"/>
-							<p:inputText id="telefone" requiredMessage="Campo obrigatório" required="true" 
-								value="#{pessoaManagedBean.pessoa.telefone}" />
+							<p:inputMask id="telefone" mask="(99) 9999-9999" 
+							requiredMessage="Campo obrigatório" required="true"
+							value="#{pessoaManagedBean.pessoa.telefone}"/>
 							<p:message for="telefone" />
 							
 							<p:outputLabel for="endereco" value="Endereço:"/>
@@ -40,40 +41,45 @@
 								value="#{pessoaManagedBean.pessoa.endereco}" />
 							<p:message for="endereco" />
 							
-							<p:outputLabel for="idade" value="Idade:"/>
-							<p:inputText id="idade" requiredMessage="Campo obrigatório" required="true"
-								value="#{pessoaManagedBean.pessoa.idade}" />
-							<p:message for="idade" />
+							<p:outputLabel for="email" value="Email: "/>
+							<p:inputText id="email" value="#{pessoaManagedBean.pessoa.email}">
+                				<f:validator validatorId="emailValidator" />
+            				</p:inputText>
+							<p:message for="email" />
 						
 						</p:panelGrid>
 					
-						<p:commandButton value="Salvar" process="@form" update="@form tabelaDePessoas" action="#{pessoaManagedBean.salvar()}" icon="fa fa-fw fa-save" />
-						<p:commandButton value="Limpar" process="@this" update="@form" action="#{pessoaManagedBean.limpar()}" icon="fa fa-fw fa-eraser" />
+						<p:commandButton value="Salvar" process="@form" update="@form tabelaDePessoas" 
+						action="#{pessoaManagedBean.salvar()}" icon="fa fa-fw fa-save" />
+						<p:commandButton value="Limpar" process="@this" update="@form" 
+						action="#{pessoaManagedBean.limpar()}" icon="fa fa-fw fa-eraser" />
 					</h:form>
 					
 					<p:dataTable id="tabelaDePessoas" var="pessoa" value="#{pessoaManagedBean.listaPessoas}"
 						emptyMessage="Não existem pessoas cadastradas" style="padding-top:20px;">
-						<p:column headerText="Id">
+				<!--  	<p:column headerText="Id">
 				    	    <h:outputText value="#{pessoa.id}" />
-					    </p:column>
-					    <p:column headerText="Nome">
+					    </p:column>-->
+					    <p:column headerText="Nome" style="text-align: center">
 				    	    <h:outputText value="#{pessoa.nome}" />
 					    </p:column>
-					    <p:column headerText="CPF">
+					    <p:column headerText="CPF" width="150">
 				    	    <h:outputText value="#{pessoa.cpf}" />
 					    </p:column>
-					    <p:column headerText="Telefone">
+					    <p:column headerText="Telefone" width="150">
 				    	    <h:outputText value="#{pessoa.telefone}" />
 					    </p:column>
 					    <p:column headerText="Endereço">
 				    	    <h:outputText value="#{pessoa.endereco}" />
 					    </p:column>
-					    <p:column headerText="Idade">
-				    	    <h:outputText value="#{pessoa.idade}" />
+					    <p:column headerText="Email" width="300">
+				    	    <h:outputText value="#{pessoa.email}" />
 					    </p:column>
 					    <p:column headerText="Ações" style="text-align: center">
-					    	<p:commandButton icon="fa fa-fw fa-edit" title="Editar Pessoa" update="pessoaForm" action="#{pessoaManagedBean.setPessoa(pessoa)}" />
-					    	<p:commandButton icon="fa fa-fw fa-trash" title="Deletar Pessoa" update="tabelaDePessoas pessoaForm" action="#{pessoaManagedBean.deletar(pessoa)}">
+					    	<p:commandButton icon="fa fa-fw fa-edit" title="Editar Pessoa" update="pessoaForm" 
+					    	action="#{pessoaManagedBean.setPessoa(pessoa)}" />
+					    	<p:commandButton icon="fa fa-fw fa-trash" title="Deletar Pessoa" update="tabelaDePessoas pessoaForm" 
+					    	action="#{pessoaManagedBean.deletar(pessoa)}">
 					    		<p:confirm header="Confirmação" message="Deseja deletar essa Pessoa?" icon="ui-icon-alert" />
 					    	</p:commandButton>
 					    	

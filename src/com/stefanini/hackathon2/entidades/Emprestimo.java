@@ -1,6 +1,8 @@
 package com.stefanini.hackathon2.entidades;
 
 import java.util.Date;
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,7 +10,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Emprestimo {
@@ -17,13 +21,18 @@ public class Emprestimo {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	
-	@ManyToOne(cascade = CascadeType.REFRESH)
-	@JoinColumn(name = "idPessoa", nullable = true)
+	@OneToOne(cascade = CascadeType.REFRESH)
+	@JoinColumn(name = "idPessoa", nullable = false)
 	private Pessoa pessoa;
 	
-	@ManyToOne(cascade = CascadeType.REFRESH)
-	@JoinColumn(name = "idLivro", nullable = true)
-	private Livro livro;
+	@OneToMany(cascade = CascadeType.REFRESH)
+	@JoinTable(name = "emprestimo_HAS_Livros", joinColumns={@JoinColumn(name="emprestimo_ID", referencedColumnName="id")}, 
+	inverseJoinColumns={@JoinColumn(name="livro_ID", referencedColumnName="id")})
+	private List<Livro> livros;
+	
+	@OneToOne(cascade = CascadeType.REFRESH)
+	@JoinColumn(name = "idFuncionario", nullable = false)
+	private Funcionario funcionario;
 	
 	@Column(nullable=false)
 	private Date dataEmprestimo;
@@ -31,8 +40,8 @@ public class Emprestimo {
 	@Column(nullable=true)
 	private Date dataDevolucao;
 	
-	@Column(nullable=true)
-	private String status;
+	@Column(nullable=false)
+	private boolean status;
 	
 	public Emprestimo(){
 		
@@ -46,13 +55,7 @@ public class Emprestimo {
 		this.pessoa = pessoa;
 	}
 
-	public Livro getLivro() {
-		return livro;
-	}
-
-	public void setLivro(Livro livro) {
-		this.livro = livro;
-	}
+	
 
 	public Date getDataEmprestimo() {
 		return dataEmprestimo;
@@ -70,14 +73,22 @@ public class Emprestimo {
 		this.dataDevolucao = dataDevolucao;
 	}
 	
-	public String getStatus() {
+	public Funcionario getFuncionario() {
+		return funcionario;
+	}
+
+	public void setFuncionario(Funcionario funcionario) {
+		this.funcionario = funcionario;
+	}
+
+	public boolean isStatus() {
 		return status;
 	}
-	
-	public void setStatus(String status) {
+
+	public void setStatus(boolean status) {
 		this.status = status;
 	}
-	
+
 	public Integer getId() {
 		return id;
 	}
@@ -85,22 +96,31 @@ public class Emprestimo {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
+
+	public List<Livro> getLivros() {
+		return livros;
+	}
+
+	public void setLivros(List<Livro> livros) {
+		this.livros = livros;
+	}
+
 	@Override
-	public final int hashCode() {
-		final int prime = 12;
+	public int hashCode() {
+		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((pessoa == null) ? 0 : pessoa.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		result = prime * result + ((dataDevolucao == null) ? 0 : dataDevolucao.hashCode());
 		result = prime * result + ((dataEmprestimo == null) ? 0 : dataEmprestimo.hashCode());
-		result = prime * result + ((livro == null) ? 0 : livro.hashCode());
+		result = prime * result + ((funcionario == null) ? 0 : funcionario.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((livros == null) ? 0 : livros.hashCode());
+		result = prime * result + ((pessoa == null) ? 0 : pessoa.hashCode());
+		result = prime * result + (status ? 1231 : 1237);
 		return result;
 	}
-	
+
 	@Override
-	public final boolean equals(Object obj) {
+	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
 		if (obj == null)
@@ -108,37 +128,39 @@ public class Emprestimo {
 		if (getClass() != obj.getClass())
 			return false;
 		Emprestimo other = (Emprestimo) obj;
-		if (pessoa == null) {
-			if (other.pessoa != null)
+		if (dataDevolucao == null) {
+			if (other.dataDevolucao != null)
 				return false;
-		} else if (!pessoa.equals(other.pessoa))
+		} else if (!dataDevolucao.equals(other.dataDevolucao))
+			return false;
+		if (dataEmprestimo == null) {
+			if (other.dataEmprestimo != null)
+				return false;
+		} else if (!dataEmprestimo.equals(other.dataEmprestimo))
+			return false;
+		if (funcionario == null) {
+			if (other.funcionario != null)
+				return false;
+		} else if (!funcionario.equals(other.funcionario))
 			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (status == null) {
-			if (other.status != null)
+		if (livros == null) {
+			if (other.livros != null)
 				return false;
-		} else if (!status.equals(other.status))
+		} else if (!livros.equals(other.livros))
 			return false;
-		if (dataDevolucao == null) {
-			if (other.dataDevolucao != null)
+		if (pessoa == null) {
+			if (other.pessoa != null)
 				return false;
-		} else if (!dataDevolucao.equals(other.dataDevolucao))
-			return false;		
-		if (dataEmprestimo == null) {
-			if (other.dataEmprestimo != null)
-				return false;
-		} else if (!dataEmprestimo.equals(other.dataEmprestimo))
-			return false;		
-		if (livro == null) {
-			if (other.livro != null)
-				return false;
-		} else if (!livro.equals(other.livro))
+		} else if (!pessoa.equals(other.pessoa))
+			return false;
+		if (status != other.status)
 			return false;
 		return true;
 	}
-				
+			
 }

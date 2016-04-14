@@ -49,5 +49,10 @@ public class EmprestimoServico {
 	public void deletar(Emprestimo emprestimo){
 		repositorioDeEmprestimo.remover(emprestimo);
 	}
+	
+//	@Transacional
+//	public void devolver(Emprestimo emprestimo){
+//		repositorioDeEmprestimo.atualizar(emprestimo);
+//	}
 
 }

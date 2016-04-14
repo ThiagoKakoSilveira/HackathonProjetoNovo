@@ -8,7 +8,6 @@ import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
 import com.stefanini.hackathon2.entidades.Emprestimo;
-import com.stefanini.hackathon2.entidades.Livro;
 import com.stefanini.hackathon2.entidades.Pessoa;
 import com.stefanini.hackathon2.servicos.EmprestimoServico;
 import com.stefanini.hackathon2.util.Mensageiro;
@@ -16,7 +15,7 @@ import com.stefanini.hackathon2.util.Mensageiro;
 @ManagedBean
 @ViewScoped
 public class EmprestimoManagedBean {
-	
+		
 	private Emprestimo emprestimo;
 	private List<Emprestimo>listaDeEmprestimos;
 	
@@ -24,12 +23,14 @@ public class EmprestimoManagedBean {
 	private EmprestimoServico servico;
 	
 	public EmprestimoManagedBean(){
-		limpar();				
+						
 	}
 	
 	public void salvar(){
+//		emprestimo.getLivro().setStatus(true);
 		emprestimo.setPessoa(servico.pesquisarPorCpf(emprestimo.getPessoa().getCpf()));
-		emprestimo.setDataEmprestimo(new Date());//arrumar o modelo... tirar o status de empréstimo e colocar no livro arrumar o mapiamento do banco 		
+		emprestimo.setDataEmprestimo(new Date());//arrumar o modelo... tirar o status de empréstimo e colocar no livro arrumar o mapiamento do banco
+		emprestimo.setStatus(true);		
 		servico.salvar(getEmprestimo());
 		Mensageiro.notificaInformacao("Parabéns", "Empréstimo cadastrado com sucesso!");
 		carregarListaDeEmprestimo();
@@ -52,6 +53,9 @@ public class EmprestimoManagedBean {
 	}
 
 	public List<Emprestimo> getListaDeEmprestimos() {
+		if(listaDeEmprestimos == null){
+			carregarListaDeEmprestimo();
+		}
 		return listaDeEmprestimos;
 	}
 
@@ -66,6 +70,28 @@ public class EmprestimoManagedBean {
 	public void limpar(){
 		setEmprestimo(new Emprestimo());
 		getEmprestimo().setPessoa(new Pessoa());
-		getEmprestimo().setLivro(new Livro());
+//		getEmprestimo().setLivro(new Livro());
 	}
+	
+	public void devolver(Emprestimo emprestimo){
+		emprestimo.setDataDevolucao(new Date());
+		emprestimo.setStatus(false);
+		servico.salvar(emprestimo);
+		Mensageiro.notificaInformacao("Parabéns", "Empréstimo devolvido com sucesso!");
+		carregarListaDeEmprestimo();
+		limpar();
+	}
+
+	public EmprestimoServico getServico() {
+		return servico;
+	}
+
+	public void setServico(EmprestimoServico servico) {
+		this.servico = servico;
+	}
+	
+	public void setListaDeEmprestimos(List<Emprestimo> listaDeEmprestimos) {
+		this.listaDeEmprestimos = listaDeEmprestimos;
+	}
+	
 }
