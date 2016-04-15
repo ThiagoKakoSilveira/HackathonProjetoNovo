@@ -12,7 +12,7 @@ public class FuncionarioServico {
 	
 	@Transacional
 	public void salvar(Funcionario funcionario){
-		if(funcionario.getId()==null){
+		if(funcionario.getCpf()==null){
 			repositorio.inserir(funcionario);
 		}else{
 			repositorio.atualizar(funcionario);

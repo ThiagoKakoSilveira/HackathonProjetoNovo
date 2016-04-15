@@ -1,34 +1,37 @@
 package com.stefanini.hackathon2.entidades;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Pessoa implements Serializable{
 	
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	protected Integer id;
-	@Column(nullable=false)
-	protected String nome;
-	@Column(nullable=false, unique=true)
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@Id	
 	protected String cpf;
+	@Column(nullable=false)
+	protected String nome;	
 	@Column(nullable=false)
 	protected String telefone;
 	@Column(nullable=false)
 	protected String endereco;
 	@Column(nullable=false)
 	protected String email;
-//	@OneToOne(mappedBy="pessoa")
-//	private Emprestimo emprestimo;
+	@OneToMany(cascade=CascadeType.PERSIST, fetch=FetchType.LAZY, mappedBy="pessoa")
+	private List<Emprestimo> emprestimos;
 		
 	public Pessoa(){
 		
@@ -65,15 +68,7 @@ public class Pessoa implements Serializable{
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
-			
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
+		
 	public String getEmail() {
 		return email;
 	}
@@ -88,8 +83,7 @@ public class Pessoa implements Serializable{
 		int result = 1;
 		result = prime * result + ((cpf == null) ? 0 : cpf.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((endereco == null) ? 0 : endereco.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((endereco == null) ? 0 : endereco.hashCode());		
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		result = prime * result + ((telefone == null) ? 0 : telefone.hashCode());
 		return result;
@@ -118,12 +112,7 @@ public class Pessoa implements Serializable{
 			if (other.endereco != null)
 				return false;
 		} else if (!endereco.equals(other.endereco))
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
+			return false;		
 		if (nome == null) {
 			if (other.nome != null)
 				return false;
@@ -135,5 +124,14 @@ public class Pessoa implements Serializable{
 		} else if (!telefone.equals(other.telefone))
 			return false;
 		return true;
+	}
+
+	public List<Emprestimo> getEmprestimos() {
+		return emprestimos;
+	}
+
+	public void setEmprestimos(List<Emprestimo> emprestimos) {
+		this.emprestimos = emprestimos;
 	}	
+	
 }
