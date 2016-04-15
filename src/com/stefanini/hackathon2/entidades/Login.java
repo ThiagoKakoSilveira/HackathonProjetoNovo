@@ -5,10 +5,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-//import javax.persistence.OneToOne;
-//import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 
-//@PrimaryKeyJoinColumn(name = "cpf")
+@PrimaryKeyJoinColumn(name = "cpf")
 @Entity
 public class Login {
 	
@@ -19,8 +19,8 @@ public class Login {
 	private String acesso;
 	@Column(nullable=false)
 	private String senha;
-//	@OneToOne(optional=false)
-//	private Funcionario funcionario;
+	@OneToOne(optional=false)
+	private Funcionario funcionario;
 	
 	
 	public String getId() {

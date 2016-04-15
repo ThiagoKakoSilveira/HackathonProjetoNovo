@@ -1,13 +1,13 @@
 package com.stefanini.hackathon2.entidades;
 
-//import javax.persistence.CascadeType;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-//import javax.persistence.FetchType;
+import javax.persistence.FetchType;
 //import javax.persistence.Inheritance;
 //import javax.persistence.InheritanceType;
-//import javax.persistence.JoinColumn;
-//import javax.persistence.OneToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 
 @Entity
@@ -27,9 +27,9 @@ public class Funcionario extends Pessoa {
 	@Column(nullable=false)
 	private double salario;
 	
-//	@OneToOne(optional=false, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-//	@JoinColumn(nullable=false)
-//	private Login login;
+	@OneToOne(optional=false, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+	@JoinColumn(nullable=false)
+	private Login login;
 
 	public Funcionario() {
 		super();		
@@ -67,13 +67,13 @@ public class Funcionario extends Pessoa {
 		return true;
 	}
 
-//	public Login getLogin() {
-//		return login;
-//	}
-//
-//	public void setLogin(Login login) {
-//		this.login = login;
-//	}
+	public Login getLogin() {
+		return login;
+	}
+
+	public void setLogin(Login login) {
+		this.login = login;
+	}
 	
 	
 }
