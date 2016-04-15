@@ -27,8 +27,8 @@ public class Funcionario extends Pessoa {
 	@Column(nullable=false)
 	private double salario;
 	
-	@OneToOne(optional=false, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-	@JoinColumn(nullable=false)
+	@OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+	@JoinColumn(nullable=true)//tive que aceitar o nulo pois não consigo fazer preencher a tabela login!!! Ta gerando illegalArgumentException
 	private Login login;
 
 	public Funcionario() {

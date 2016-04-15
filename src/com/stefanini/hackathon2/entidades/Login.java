@@ -1,32 +1,36 @@
 package com.stefanini.hackathon2.entidades;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
+//import javax.persistence.PrimaryKeyJoinColumn;
 
-@PrimaryKeyJoinColumn(name = "cpf")
+//@PrimaryKeyJoinColumn(name = "cpf")
 @Entity
 public class Login {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private String id;
+	private Integer id;
 	@Column(nullable=false)
 	private String acesso;
 	@Column(nullable=false)
 	private String senha;
-	@OneToOne(optional=false)
+	@OneToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+	@JoinColumn(nullable=true)//tive que aceitar o nulo pois não consigo fazer preencher a tabela login
 	private Funcionario funcionario;
 	
 	
-	public String getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	

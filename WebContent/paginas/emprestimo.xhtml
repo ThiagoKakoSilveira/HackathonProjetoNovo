@@ -33,6 +33,15 @@
 								itemLabel="#{livro.nome}" itemValue="#{livro}" />
 							</p:selectOneMenu>
 							<p:message for="livroSelect" />
+							
+							<p:outputLabel for="funcionarioSelect" value="Funcionário:"/>
+							<p:selectOneMenu id="funcionarioSelect" converter="conversorCombobox" 
+							value="#{emprestimoManagedBean.emprestimo.funcionario}">
+								<f:selectItem itemLabel="selecione um funcionário" itemValue=""/>
+								<f:selectItems value="#{funcionarioManagedBean.listaFuncionarios}" var="funcionario" 
+								itemLabel="#{funcionario.nome}" itemValue="#{funcionario}" />
+							</p:selectOneMenu>
+							<p:message for="funcionarioSelect" />
 						
 						</p:panelGrid>
 					
@@ -51,6 +60,9 @@
 					    </p:column>
 					    <p:column headerText="Livro">
 				    	    <h:outputText value="#{emprestado.livro.nome}" />
+					    </p:column>	
+					    <p:column headerText="Funcionário">
+				    	    <h:outputText value="#{emprestado.funcionario.nome}" />
 					    </p:column>					    
 					    <p:column headerText="Ações" style="text-align: center">
 					    	<p:commandButton icon="fa fa-fw fa-edit" title="Editar Empréstimo" update="emprestimoForm" 
