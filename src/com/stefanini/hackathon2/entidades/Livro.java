@@ -22,8 +22,8 @@ public class Livro {
 	@Column(nullable=false)
 	private Integer paginas;
 	
-	@Column(nullable=false)
-	private boolean status;
+//	@Column(nullable=false)
+//	private boolean status;
 	
 //	@OneToOne(mappedBy="livro")
 //	private Emprestimo emprestimo;
@@ -63,13 +63,13 @@ public class Livro {
 		this.paginas = paginas;
 	}
 	
-	public boolean isStatus() {
-		return status;
-	}
-
-	public void setStatus(boolean status) {
-		this.status = status;
-	}
+//	public boolean isStatus() {
+//		return status;
+//	}
+//
+//	public void setStatus(boolean status) {
+//		this.status = status;
+//	}
 
 	@Override
 	public int hashCode() {
@@ -79,7 +79,7 @@ public class Livro {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		result = prime * result + ((paginas == null) ? 0 : paginas.hashCode());
-		result = prime * result + (status ? 1231 : 1237);
+//		result = prime * result + (status ? 1231 : 1237);
 		return result;
 	}
 
@@ -112,8 +112,8 @@ public class Livro {
 				return false;
 		} else if (!paginas.equals(other.paginas))
 			return false;
-		if (status != other.status)
-			return false;
+//		if (status != other.status)
+//			return false;
 		return true;
 	}
 }

@@ -15,72 +15,72 @@
 				
 				<p:layoutUnit position="center">
 
-					<h:form id="pessoaForm">				
+					<h:form id="clienteForm">				
 						<p:growl id="growl" showDetail="true" sticky="false" life="4000" />  
 						
 						<p:panelGrid columns="3">
 						
 							<p:outputLabel for="nome" value="Nome:"/>
 							<p:inputText id="nome" requiredMessage="Campo obrigatório" required="true" 
-								value="#{pessoaManagedBean.pessoa.nome}" />
+								value="#{clienteManagedBean.cliente.nome}" />
 							<p:message for="nome" />
 		
 							<p:outputLabel for="cpf" value="CPF:"/>
 							<p:inputMask id="cpf" requiredMessage="Campo obrigatório" required="true" 
-								mask="999.999.999-99" value="#{pessoaManagedBean.pessoa.cpf}" />
+								mask="999.999.999-99" value="#{clienteManagedBean.cliente.cpf}" />
 							<p:message for="cpf" />
 						
 							<p:outputLabel for="telefone" value="Telefone:"/>
 							<p:inputMask id="telefone" mask="(99) 9999-9999" 
 							requiredMessage="Campo obrigatório" required="true"
-							value="#{pessoaManagedBean.pessoa.telefone}"/>
+							value="#{clienteManagedBean.cliente.telefone}"/>
 							<p:message for="telefone" />
 							
 							<p:outputLabel for="endereco" value="Endereço:"/>
 							<p:inputText id="endereco" requiredMessage="Campo obrigatório" required="true" 
-								value="#{pessoaManagedBean.pessoa.endereco}" />
+								value="#{clienteManagedBean.cliente.endereco}" />
 							<p:message for="endereco" />
 							
 							<p:outputLabel for="email" value="Email: "/>
-							<p:inputText id="email" value="#{pessoaManagedBean.pessoa.email}">
+							<p:inputText id="email" value="#{clienteManagedBean.cliente.email}">
                 				<f:validator validatorId="emailValidator" />
             				</p:inputText>
 							<p:message for="email" />
 						
 						</p:panelGrid>
 					
-						<p:commandButton value="Salvar" process="@form" update="@form tabelaDePessoas" 
-						action="#{pessoaManagedBean.salvar()}" icon="fa fa-fw fa-save" />
+						<p:commandButton value="Salvar" process="@form" update="@form tabelaDeClientes" 
+						action="#{clienteManagedBean.salvar()}" icon="fa fa-fw fa-save" />
 						<p:commandButton value="Limpar" process="@this" update="@form" 
-						action="#{pessoaManagedBean.limpar()}" icon="fa fa-fw fa-eraser" />
+						action="#{clienteManagedBean.limpar()}" icon="fa fa-fw fa-eraser" />
 					</h:form>
 					
-					<p:dataTable id="tabelaDePessoas" var="pessoa" value="#{pessoaManagedBean.listaPessoas}"
-						emptyMessage="Não existem pessoas cadastradas" style="padding-top:20px;">
+					<p:dataTable id="tabelaDeClientes" var="cliente" value="#{clienteManagedBean.listaClientes}"
+						emptyMessage="Não existem clientes cadastradas" style="padding-top:20px;">
 				<!--  	<p:column headerText="Id">
 				    	    <h:outputText value="#{pessoa.id}" />
 					    </p:column>-->
 					    <p:column headerText="Nome" style="text-align: center">
-				    	    <h:outputText value="#{pessoa.nome}" />
+				    	    <h:outputText value="#{cliente.nome}" />
 					    </p:column>
 					    <p:column headerText="CPF" width="150">
-				    	    <h:outputText value="#{pessoa.cpf}" />
+				    	    <h:outputText value="#{cliente.cpf}" />
 					    </p:column>
 					    <p:column headerText="Telefone" width="150">
-				    	    <h:outputText value="#{pessoa.telefone}" />
+				    	    <h:outputText value="#{cliente.telefone}" />
 					    </p:column>
 					    <p:column headerText="Endereço">
-				    	    <h:outputText value="#{pessoa.endereco}" />
+				    	    <h:outputText value="#{cliente.endereco}" />
 					    </p:column>
 					    <p:column headerText="Email" width="300">
-				    	    <h:outputText value="#{pessoa.email}" />
+				    	    <h:outputText value="#{cliente.email}" />
 					    </p:column>
 					    <p:column headerText="Ações" style="text-align: center">
-					    	<p:commandButton icon="fa fa-fw fa-edit" title="Editar Pessoa" update="pessoaForm" 
-					    	action="#{pessoaManagedBean.setPessoa(pessoa)}" />
-					    	<p:commandButton icon="fa fa-fw fa-trash" title="Deletar Pessoa" update="tabelaDePessoas pessoaForm" 
-					    	action="#{pessoaManagedBean.deletar(pessoa)}">
-					    		<p:confirm header="Confirmação" message="Deseja deletar essa Pessoa?" icon="ui-icon-alert" />
+					    	<p:commandButton icon="fa fa-fw fa-edit" title="Editar Cliente" update="clienteForm" 
+					    	action="#{clienteManagedBean.setCliente(cliente)}" />
+					    	<p:commandButton icon="fa fa-fw fa-trash" title="Deletar Cliente" update="tabelaDeClientes clienteForm" 
+					    	action="#{clienteManagedBean.deletar(cliente)}">
+					    		<p:confirm header="Confirmação" message="Deseja deletar essa Cliente?" icon="ui-icon-alert" />
 					    	</p:commandButton>
 					    	
 					    	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">

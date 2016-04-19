@@ -22,7 +22,7 @@ public class Login {
 	private String acesso;
 	@Column(nullable=false)
 	private String senha;
-	@OneToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(nullable=true)//tive que aceitar o nulo pois não consigo fazer preencher a tabela login
 	private Funcionario funcionario;
 	
@@ -74,7 +74,11 @@ public class Login {
 	}
 	public void setAcesso(String acesso) {
 		this.acesso = acesso;
+	}
+	public Funcionario getFuncionario() {
+		return funcionario;
+	}
+	public void setFuncionario(Funcionario funcionario) {
+		this.funcionario = funcionario;
 	}	
-	
-	
 }

@@ -18,6 +18,14 @@ public class FuncionarioServico {
 			repositorio.atualizar(funcionario);
 		}		
 	}
+//	@Transacional
+//	public void salvarLogin(Login login){
+//		if(login.getId()==null){
+//			repositorio.inserirLogin(login);
+//		}else{
+//			repositorio.atualizarLogin(login);
+//		}
+//	}
 	
 	@Transacional
 	public void deletar(Funcionario funcionario){

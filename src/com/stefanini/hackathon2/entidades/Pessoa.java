@@ -1,20 +1,15 @@
 package com.stefanini.hackathon2.entidades;
 
 import java.io.Serializable;
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.OneToMany;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-public class Pessoa implements Serializable{
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public abstract class Pessoa implements Serializable{
 	
 	/**
 	 * 
@@ -30,8 +25,8 @@ public class Pessoa implements Serializable{
 	protected String endereco;
 	@Column(nullable=false)
 	protected String email;
-	@OneToMany(cascade=CascadeType.PERSIST, fetch=FetchType.LAZY, mappedBy="pessoa")
-	private List<Emprestimo> emprestimos;
+//	@OneToMany(cascade=CascadeType.PERSIST, fetch=FetchType.LAZY, mappedBy="pessoa")
+//	private List<Emprestimo> emprestimos;
 		
 	public Pessoa(){
 		
@@ -126,12 +121,12 @@ public class Pessoa implements Serializable{
 		return true;
 	}
 
-	public List<Emprestimo> getEmprestimos() {
-		return emprestimos;
-	}
-
-	public void setEmprestimos(List<Emprestimo> emprestimos) {
-		this.emprestimos = emprestimos;
-	}	
+//	public List<Emprestimo> getEmprestimos() {
+//		return emprestimos;
+//	}
+//
+//	public void setEmprestimos(List<Emprestimo> emprestimos) {
+//		this.emprestimos = emprestimos;
+//	}	
 	
 }

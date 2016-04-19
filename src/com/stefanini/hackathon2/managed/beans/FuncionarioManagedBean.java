@@ -5,6 +5,7 @@ import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
 import com.stefanini.hackathon2.entidades.Funcionario;
+//import com.stefanini.hackathon2.entidades.Login;
 import com.stefanini.hackathon2.servicos.FuncionarioServico;
 import com.stefanini.hackathon2.util.Mensageiro;
 
@@ -18,11 +19,17 @@ public class FuncionarioManagedBean {
 	@Inject
 	private FuncionarioServico servico;
 	
+//	@Inject
+//	private Login login;
+	
 	public FuncionarioManagedBean(){
 		
 	}
 	
 	public void salvar(){
+//		servico.salvarLogin(getFuncionario().getLogin());
+//		funcionario.setLogin(login);
+		
 		servico.salvar(getFuncionario());
 		Mensageiro.notificaInformacao("Parabéns!", "Funcionário cadastrado com sucesso!");
 		carregarListaDeFuncionarios();
@@ -57,6 +64,9 @@ public class FuncionarioManagedBean {
 	}
 
 	public List<Funcionario> getListaFuncionarios() {
+		if(listaFuncionarios==null){
+			carregarListaDeFuncionarios();
+		}
 		return listaFuncionarios;
 	}
 

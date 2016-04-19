@@ -3,6 +3,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import com.stefanini.hackathon2.entidades.Funcionario;
+import com.stefanini.hackathon2.entidades.Login;
 
 @SuppressWarnings("all")
 public class FuncionarioRepositorio {
@@ -13,9 +14,12 @@ public class FuncionarioRepositorio {
 	public void inserir(Funcionario funcionario){
 		entityManager.persist(funcionario);
 	}
+//	public void inserirLogin(Login login){
+//		entityManager.persist(login);
+//	}
 	
 	public List<Funcionario> todosFuncionarios(){
-		return entityManager.createQuery("select f from"+Funcionario.class.getSimpleName() + "f").getResultList();
+		return entityManager.createQuery("select f from "+Funcionario.class.getSimpleName() + " f").getResultList();
 	}
 	
 	public void remover(Funcionario funcionario){
@@ -44,5 +48,8 @@ public class FuncionarioRepositorio {
 		String sql = "select count(1) from " + Funcionario.class.getSimpleName() + "f where f.cpf = '"+ cpf + "'";
 		long quantidade = (long) entityManager.createQuery(sql).getSingleResult();
 		return (quantidade > 0);
+	}
+	public void atualizarLogin(Login login) {
+		entityManager.merge(login);		
 	}
 }

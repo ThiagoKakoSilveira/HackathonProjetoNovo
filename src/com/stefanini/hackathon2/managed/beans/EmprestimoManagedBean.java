@@ -7,15 +7,15 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
+import com.stefanini.hackathon2.entidades.Cliente;
 import com.stefanini.hackathon2.entidades.Emprestimo;
-import com.stefanini.hackathon2.entidades.Pessoa;
 import com.stefanini.hackathon2.servicos.EmprestimoServico;
 import com.stefanini.hackathon2.util.Mensageiro;
 
 @ManagedBean
 @ViewScoped
 public class EmprestimoManagedBean {
-		
+	@Inject
 	private Emprestimo emprestimo;
 	private List<Emprestimo>listaDeEmprestimos;
 	
@@ -23,14 +23,14 @@ public class EmprestimoManagedBean {
 	private EmprestimoServico servico;
 	
 	public EmprestimoManagedBean(){
-						
+								
 	}
 	
 	public void salvar(){
 //		emprestimo.getLivro().setStatus(true);
-		emprestimo.setPessoa(servico.pesquisarPorCpf(emprestimo.getPessoa().getCpf()));
+		emprestimo.setCliente(servico.pesquisarPorCpf(emprestimo.getCliente().getCpf()));
 		emprestimo.setDataEmprestimo(new Date());//arrumar o modelo... tirar o status de empréstimo e colocar no livro arrumar o mapiamento do banco
-		emprestimo.setStatus(true);		
+//		emprestimo.setStatus(true);		
 		servico.salvar(getEmprestimo());
 		Mensageiro.notificaInformacao("Parabéns", "Empréstimo cadastrado com sucesso!");
 		carregarListaDeEmprestimo();
@@ -69,7 +69,7 @@ public class EmprestimoManagedBean {
 	
 	public void limpar(){
 		setEmprestimo(new Emprestimo());
-		getEmprestimo().setPessoa(new Pessoa());
+		getEmprestimo().setCliente(new Cliente());
 //		getEmprestimo().setLivro(new Livro());
 	}
 	

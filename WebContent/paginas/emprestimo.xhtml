@@ -19,21 +19,15 @@
 						<p:growl id="growl" showDetail="true" sticky="false" life="4000" />  
 						
 						<p:panelGrid columns="3">
-						
-							<p:outputLabel for="cpf" value="CPF:"/>
-							<p:inputText id="cpf" requiredMessage="Campo obrigatório" required="true" 
-								value="#{emprestimoManagedBean.emprestimo.pessoa.cpf}" />
-							<p:message for="cpf" />
-		
-							<p:outputLabel for="livroSelect" value="Livro:"/>
-							<p:selectOneMenu id="livroSelect" converter="conversorCombobox" 
-							value="#{emprestimoManagedBean.emprestimo.livro}">
-								<f:selectItem itemLabel="selecione um livro" itemValue=""/>
-								<f:selectItems value="#{livroManagedBean.listaDeLivrosCadastrados}" var="livro" 
-								itemLabel="#{livro.nome}" itemValue="#{livro}" />
+						<p:outputLabel for="clienteSelect" value="Cliente:"/>
+							<p:selectOneMenu id="clienteSelect" converter="conversorCombobox" 
+							value="#{emprestimoManagedBean.emprestimo.cliente}">
+								<f:selectItem itemLabel="selecione um cliente" itemValue=""/>
+								<f:selectItems value="#{clienteManagedBean.listaClientes}" var="Cliente" 
+								itemLabel="#{Cliente.nome}" itemValue="#{Cliente}" />
 							</p:selectOneMenu>
-							<p:message for="livroSelect" />
-							
+							<p:message for="clienteSelect" />			
+									
 							<p:outputLabel for="funcionarioSelect" value="Funcionário:"/>
 							<p:selectOneMenu id="funcionarioSelect" converter="conversorCombobox" 
 							value="#{emprestimoManagedBean.emprestimo.funcionario}">
@@ -41,9 +35,21 @@
 								<f:selectItems value="#{funcionarioManagedBean.listaFuncionarios}" var="funcionario" 
 								itemLabel="#{funcionario.nome}" itemValue="#{funcionario}" />
 							</p:selectOneMenu>
-							<p:message for="funcionarioSelect" />
-						
+							<p:message for="funcionarioSelect" />						
 						</p:panelGrid>
+						
+						<p:outputLabel for="btnModalLivro" value="Titulo dos livros" />	
+						<p:panel>
+						<p:panelGrid columns="1">												
+								<p:commandButton for="idLivro" value="Selecionar Livros"
+									id="btnModalLivro" onclick="PF('dialogLivro').show();" />
+								<ui:repeat id="listaLivros" var="livro"
+									value="#{emprestimoManagedBean.emprestimo.livros}">
+									<p:outputLabel value="#{livro.nome}" />
+									<br></br>
+								</ui:repeat>
+							</p:panelGrid>
+						</p:panel>		
 					
 						<p:commandButton value="Salvar" process="@form" update="@form tabelaDeEmprestimo" 
 							action="#{emprestimoManagedBean.salvar()}" icon="fa fa-fw fa-save" />

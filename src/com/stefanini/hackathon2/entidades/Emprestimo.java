@@ -10,9 +10,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+//import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Emprestimo {
@@ -21,16 +21,18 @@ public class Emprestimo {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	
-	@OneToOne(cascade = CascadeType.REFRESH)
-	@JoinColumn(name = "idPessoa", nullable = false)
-	private Pessoa pessoa;
+	@ManyToOne(cascade = CascadeType.REFRESH)
+	@JoinColumn(name = "idCliente", nullable = false)
+	private Cliente cliente;
 	
-	@OneToMany(cascade = CascadeType.REFRESH)
-	@JoinTable(name = "emprestimo_HAS_Livros", joinColumns={@JoinColumn(name="emprestimo_ID", referencedColumnName="id")}, 
-	inverseJoinColumns={@JoinColumn(name="livro_ID", referencedColumnName="id")})
+	
+//	@JoinTable(name = "emprestimo_HAS_Livros", joinColumns={@JoinColumn(name="emprestimo_ID", referencedColumnName="id")}, 
+//	inverseJoinColumns={@JoinColumn(name="livro_ID", referencedColumnName="id")})
+	@ManyToMany(cascade = CascadeType.REFRESH)
+	@JoinColumn(name="idLivro", nullable = false)
 	private List<Livro> livros;
 	
-	@OneToOne(cascade = CascadeType.REFRESH)
+	@ManyToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "idFuncionario", nullable = false)
 	private Funcionario funcionario;
 	
@@ -47,12 +49,12 @@ public class Emprestimo {
 		
 	}
 
-	public Pessoa getPessoa() {
-		return pessoa;
+	public Cliente getCliente() {
+		return cliente;
 	}
 
-	public void setPessoa(Pessoa pessoa) {
-		this.pessoa = pessoa;
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 
 	
@@ -114,7 +116,7 @@ public class Emprestimo {
 		result = prime * result + ((funcionario == null) ? 0 : funcionario.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((livros == null) ? 0 : livros.hashCode());
-		result = prime * result + ((pessoa == null) ? 0 : pessoa.hashCode());
+		result = prime * result + ((cliente == null) ? 0 : cliente.hashCode());
 		result = prime * result + (status ? 1231 : 1237);
 		return result;
 	}
@@ -153,14 +155,15 @@ public class Emprestimo {
 				return false;
 		} else if (!livros.equals(other.livros))
 			return false;
-		if (pessoa == null) {
-			if (other.pessoa != null)
+		if (cliente == null) {
+			if (other.cliente != null)
 				return false;
-		} else if (!pessoa.equals(other.pessoa))
+		} else if (!cliente.equals(other.cliente))
 			return false;
 		if (status != other.status)
 			return false;
 		return true;
 	}
+	
 			
 }

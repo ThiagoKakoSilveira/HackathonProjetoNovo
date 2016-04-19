@@ -51,7 +51,7 @@
 							<p:outputLabel for="salario" value="Salário:" />							
 							<p:inputText id="salario" requiredMessage="Campo obrigatório" required="true"
 							value="#{funcionarioManagedBean.funcionario.salario}" />
-							<p:message for="email" />					
+							<p:message for="email" />	
 																										
 						</p:panelGrid>
 					
@@ -78,10 +78,13 @@
 					    <p:column headerText="Email" width="300">
 				    	    <h:outputText value="#{funcionario.email}" />
 					    </p:column>
+					     <p:column headerText="Salário" width="100">
+				    	    <h:outputText value="#{funcionario.salario}" />
+					    </p:column>
 					    <p:column headerText="Ações" style="text-align: center">
 					    	<p:commandButton icon="fa fa-fw fa-edit" title="Editar Funcionario" update="funcionarioForm" 
 					    	action="#{funcionarioManagedBean.setFuncionario(funcionario)}" />
-					    	<p:commandButton icon="fa fa-fw fa-trash" title="Deletar Funcionario" update="tabelaDefuncionarios funcionarioForm" 
+					    	<p:commandButton icon="fa fa-fw fa-trash" title="Deletar Funcionario" update="tabelaDeFuncionarios funcionarioForm" 
 					    	action="#{funcionarioManagedBean.deletar(funcionario)}">
 					    		<p:confirm header="Confirmação" message="Deseja deletar esse Funcionário?" icon="ui-icon-alert" />
 					    	</p:commandButton>

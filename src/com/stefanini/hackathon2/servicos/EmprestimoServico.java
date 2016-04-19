@@ -4,10 +4,10 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import com.stefanini.hackathon2.entidades.Cliente;
 import com.stefanini.hackathon2.entidades.Emprestimo;
-import com.stefanini.hackathon2.entidades.Pessoa;
 import com.stefanini.hackathon2.repositorios.EmprestimoRepositorio;
-import com.stefanini.hackathon2.repositorios.PessoaRepositorio;
+import com.stefanini.hackathon2.repositorios.ClienteRepositorio;
 import com.stefanini.hackathon2.transacao.Transacional;
 import com.stefanini.hackathon2.util.Mensageiro;
 
@@ -16,7 +16,7 @@ public class EmprestimoServico {
 	private EmprestimoRepositorio repositorioDeEmprestimo;
 	
 	@Inject
-	private PessoaRepositorio repositorioDePessoa;
+	private ClienteRepositorio repositorioDePessoa;
 	
 	@Transacional
 	public void salvar(Emprestimo emprestimo){		
@@ -24,7 +24,7 @@ public class EmprestimoServico {
 			if (existePessoaComCpf(emprestimo)) {
 				repositorioDeEmprestimo.inserir(emprestimo);					
 			} else {
-				String mensagem = "Pessoa com cpf " + emprestimo.getPessoa().getCpf() + " não existe.";
+				String mensagem = "Cliente com cpf " + emprestimo.getCliente().getCpf() + " não existe.";
 				Mensageiro.nootificaErro("Erro!", mensagem);
 			}
 		}else{
@@ -33,10 +33,10 @@ public class EmprestimoServico {
 	}
 
 	private boolean existePessoaComCpf(Emprestimo emprestimo) {
-		return repositorioDePessoa.existePessoaComCpf(emprestimo.getPessoa().getCpf());
+		return repositorioDePessoa.existePessoaComCpf(emprestimo.getCliente().getCpf());
 	}
 	
-	public Pessoa pesquisarPorCpf(String cpf){
+	public Cliente pesquisarPorCpf(String cpf){
 		return repositorioDePessoa.pesquisarPorCpf(cpf);
 	}
 	

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui">
+	<ui:composition template="/WEB-INF/modelos/padrao.xhtml">
+		<ui:define name="conteudo">
+			<p:layout>
+				<p:layoutUnit position="north" style="text-align: center;">
+					<p:outputLabel style="font-size: 30px;" value="Cadastro de Login"/>					
+				</p:layoutUnit>
+				
+				<p:layoutUnit position="center">
+
+					<h:form id="loginForm">				
+						<p:growl id="growl" showDetail="true" sticky="false" life="4000" />  
+						
+						<p:panelGrid columns="3">
+						
+							<p:outputLabel for="funcionarioSelect" value="Funcionário:"/>
+							<p:selectOneMenu id="funcionarioSelect" converter="conversorCombobox" 
+							value="#{loginManagedBean.login.funcionario}">
+							<f:selectItem itemLabel="selecione um funcionário" itemValue=""/>
+							<f:selectItems value="#{funcionarioManagedBean.listaFuncionarios}" var="funcionario" 
+							itemLabel="#{funcionario.nome}" itemValue="#{funcionario}" />
+							</p:selectOneMenu>
+							<p:message for="funcionarioSelect" />
+						
+							<p:outputLabel for="usuario" value="Usuário:" />
+							<p:inputText id="usuario" placeholder="Login de acesso"
+							requiredMessage="Campo obrigatório" required="true"
+							value="#{loginManagedBean.login.acesso}" />
+							<p:message for="usuario" />
+							
+							<h:outputLabel for="senha1" value="Senha:" />
+							<p:password id="senha1" placeholder="Senha"
+							value="#{loginManagedBean.login.senha}"
+							validatorMessage="Senhas devem ser iguais"
+							promptLabel="Use letras e números" weakLabel="Segurança fraca"
+							goodLabel="Segurança média" strongLabel="Segurança forte"
+							match="senha2" label="Senha: " required="true" feedback="true"
+							inline="true" />
+							<p:message for="senha1"/>
+							
+							<h:outputLabel for="senha2" value="Repita a senha:" />
+							<p:password id="senha2" placeholder="Repita a senha"
+							value="#{loginManagedBean.login.senha}"
+							label="Repita a senha: " required="true" inline="true" />
+							<p:message for="senha2"/>
+							
+						</p:panelGrid>
+						<p:commandButton value="Salvar" process="@form"  
+						action="#{loginManagedBean.salvar()}" icon="fa fa-fw fa-save" />
+						<p:commandButton value="Limpar" process="@this" update="@form" 
+						action="#{loginManagedBean.limpar()}" icon="fa fa-fw fa-eraser" />
+					</h:form>
+				</p:layoutUnit>
+			</p:layout>
+		</ui:define>
+	</ui:composition>
+</html>

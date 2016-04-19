@@ -1,5 +1,7 @@
 package com.stefanini.hackathon2.entidades;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,6 +9,7 @@ import javax.persistence.FetchType;
 //import javax.persistence.Inheritance;
 //import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 
@@ -30,6 +33,9 @@ public class Funcionario extends Pessoa {
 	@OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	@JoinColumn(nullable=true)//tive que aceitar o nulo pois não consigo fazer preencher a tabela login!!! Ta gerando illegalArgumentException
 	private Login login;
+	
+	@OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, mappedBy="cliente")
+	private List<Emprestimo>emprestimos;
 
 	public Funcionario() {
 		super();		
@@ -73,6 +79,14 @@ public class Funcionario extends Pessoa {
 
 	public void setLogin(Login login) {
 		this.login = login;
+	}
+
+	public List<Emprestimo> getEmprestimos() {
+		return emprestimos;
+	}
+
+	public void setEmprestimos(List<Emprestimo> emprestimos) {
+		this.emprestimos = emprestimos;
 	}
 	
 	
