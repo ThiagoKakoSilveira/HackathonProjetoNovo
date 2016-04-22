@@ -55,7 +55,7 @@
 					</h:form>
 					<p:dataTable id="tabelaDeEmprestimo" var="emprestado" value="#{emprestimoManagedBean.listaDeEmprestimos}"
 						emptyMessage="Não existem empréstimos cadastrados" style="padding-top:20px;">
-						<p:column headerText="Id">
+						<p:column headerText="Id" width="20">
 				    	    <h:outputText value="#{emprestado.id}" />
 					    </p:column>
 					    <p:column headerText="Nome do locador">
@@ -70,7 +70,19 @@
 					    </p:column>	
 					    <p:column headerText="Funcionário">
 				    	    <h:outputText value="#{emprestado.funcionario.nome}" />
-					    </p:column>					    
+					    </p:column>		
+					    <p:column headerText="Data do emprétimo">
+				    	    <h:outputText value="#{emprestado.dataEmprestimo}" />
+					    </p:column>	
+					    <p:column headerText="Data de Devolução">
+				    	    <h:outputText value="#{emprestado.dataDevolucao}" />
+					    </p:column>	
+					    <p:column headerText="Dias de Atraso">
+				    	    <h:outputText value="#{emprestado.diasAtrasados}" />
+					    </p:column>		
+					    <p:column headerText="Status" width="30">
+				    	    <h:outputText value="#{emprestado.status}" />
+					    </p:column>			    
 					    <p:column headerText="Ações" style="text-align: center">
 					    	<p:commandButton icon="fa fa-fw fa-edit" title="Editar Empréstimo" update="emprestimoForm">					    		
 					    		<f:setPropertyActionListener value="#{emprestado}" target="#{emprestimoManagedBean.emprestimo}" />					    		

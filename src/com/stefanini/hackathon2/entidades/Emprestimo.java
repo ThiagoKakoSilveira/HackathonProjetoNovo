@@ -174,5 +174,11 @@ public class Emprestimo {
 		return true;
 	}
 	
+//	public LocalDateTime formataData(){
+//		SimpleDateFormat dataFormatada =  new SimpleDateFormat("dd/MM/yyyy:HH:mm:ss");
+//		LocalDateTime dataRetornada = dataFormatada.p 
+//		return
+//	}
+	
 			
 }
