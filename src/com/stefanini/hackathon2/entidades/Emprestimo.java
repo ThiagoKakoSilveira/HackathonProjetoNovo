@@ -1,6 +1,6 @@
 package com.stefanini.hackathon2.entidades;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -10,7 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-//import javax.persistence.JoinTable;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
@@ -25,11 +25,9 @@ public class Emprestimo {
 	@JoinColumn(name = "idCliente", nullable = false)
 	private Cliente cliente;
 	
-	
-//	@JoinTable(name = "emprestimo_HAS_Livros", joinColumns={@JoinColumn(name="emprestimo_ID", referencedColumnName="id")}, 
-//	inverseJoinColumns={@JoinColumn(name="livro_ID", referencedColumnName="id")})
-	@ManyToMany(cascade = CascadeType.REFRESH)
-	@JoinColumn(name="idLivro", nullable = false)
+	@ManyToMany
+	@JoinTable(name = "emprestimo_HAS_Livros", joinColumns={@JoinColumn(name="emprestimo_ID", referencedColumnName="id")}, 
+	inverseJoinColumns={@JoinColumn(name="livro_ID", referencedColumnName="id")})	
 	private List<Livro> livros;
 	
 	@ManyToOne(cascade = CascadeType.REFRESH)
@@ -37,14 +35,25 @@ public class Emprestimo {
 	private Funcionario funcionario;
 	
 	@Column(nullable=false)
-	private Date dataEmprestimo;
+	private LocalDateTime dataEmprestimo;
 	
 	@Column(nullable=true)
-	private Date dataDevolucao;
+	private LocalDateTime dataDevolucao;
 	
 	@Column(nullable=false)
 	private boolean status;
 	
+	@Column(nullable=true)
+	private Integer diasAtrasados;
+	
+	public Integer getDiasAtrasados() {
+		return diasAtrasados;
+	}
+
+	public void setDiasAtrasados(Integer diasAtrasados) {
+		this.diasAtrasados = diasAtrasados;
+	}
+
 	public Emprestimo(){
 		
 	}
@@ -59,19 +68,19 @@ public class Emprestimo {
 
 	
 
-	public Date getDataEmprestimo() {
+	public LocalDateTime getDataEmprestimo() {
 		return dataEmprestimo;
 	}
 
-	public void setDataEmprestimo(Date dataEmprestimo) {
+	public void setDataEmprestimo(LocalDateTime dataEmprestimo) {
 		this.dataEmprestimo = dataEmprestimo;
 	}
 
-	public Date getDataDevolucao() {
+	public LocalDateTime getDataDevolucao() {
 		return dataDevolucao;
 	}
 
-	public void setDataDevolucao(Date dataDevolucao) {
+	public void setDataDevolucao(LocalDateTime dataDevolucao) {
 		this.dataDevolucao = dataDevolucao;
 	}
 	

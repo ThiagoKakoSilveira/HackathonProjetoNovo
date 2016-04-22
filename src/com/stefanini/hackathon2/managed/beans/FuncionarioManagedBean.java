@@ -31,7 +31,7 @@ public class FuncionarioManagedBean {
 //		funcionario.setLogin(login);
 		
 		servico.salvar(getFuncionario());
-		Mensageiro.notificaInformacao("ParabÈns!", "Funcion·rio cadastrado com sucesso!");
+		Mensageiro.notificaInformacao("Parab√©ns", "Funcion√°rio cadastrado com sucesso!");
 		carregarListaDeFuncionarios();
 		limpar();
 		
@@ -39,7 +39,7 @@ public class FuncionarioManagedBean {
 	
 	public void deletar(){
 		servico.deletar(getFuncionario());
-		Mensageiro.notificaInformacao("ParabÈns!", "Funcion·rio cadastrado com sucesso!");
+		Mensageiro.notificaInformacao("Parab√©ns", "Funcion√°rio cadastrado com sucesso!");
 		carregarListaDeFuncionarios();
 		limpar();
 	}

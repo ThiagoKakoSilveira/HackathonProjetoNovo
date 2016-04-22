@@ -27,6 +27,22 @@
 							itemLabel="#{funcionario.nome}" itemValue="#{funcionario}" />
 							</p:selectOneMenu>
 							<p:message for="funcionarioSelect" />
+							
+							<p:outputLabel for="admin" value="É Administrador?" />
+							<p:selectBooleanCheckbox id="admin" value="#{loginManagedBean.login.admin}"/>
+							<p:message for="admin" />
+							
+							<p:outputLabel for="empresta" value="Empresta Livros?" />
+							<p:selectBooleanCheckbox id="empresta" value="#{loginManagedBean.login.emprestimo}"/>
+							<p:message for="empresta" />
+							
+							<p:outputLabel for="pessoa" value="Cadastra Pessoa?" />
+							<p:selectBooleanCheckbox id="pessoa" value="#{loginManagedBean.login.pessoa}"/>
+							<p:message for="pessoa" />
+							
+							<p:outputLabel for="livro" value="Cadastra Livros?" />
+							<p:selectBooleanCheckbox id="livro" value="#{loginManagedBean.login.livro}"/>
+							<p:message for="livro" />
 						
 							<p:outputLabel for="usuario" value="Usuário:" />
 							<p:inputText id="usuario" placeholder="Login de acesso"

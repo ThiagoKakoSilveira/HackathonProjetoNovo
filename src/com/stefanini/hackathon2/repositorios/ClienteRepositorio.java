@@ -4,9 +4,13 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-
+import javax.persistence.PostLoad;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 
 import com.stefanini.hackathon2.entidades.Cliente;
+
+import sun.rmi.log.ReliableLog;
 
 
 @SuppressWarnings("all")
@@ -41,8 +45,9 @@ public class ClienteRepositorio {
 	}
 	
 	public Cliente pesquisarPorCpf(String cpf){
-		String sql = "select p from "+ Cliente.class.getSimpleName() + " p where p.cpf = '"+ cpf +"'";	
-		return (Cliente) entityManager.createQuery(sql).getSingleResult();
+		String sql = "select p from "+ Cliente.class.getSimpleName() + " p where p.cpf = '"+ cpf +"'";
+		List resultList = entityManager.createQuery(sql).getResultList();
+		return ((resultList != null && !resultList.isEmpty() )? ((Cliente) resultList.get(0)) : null);
 	}
 
 	public boolean existePessoaComCpf(String cpf) {
@@ -50,4 +55,15 @@ public class ClienteRepositorio {
 		long quantidade = (long) entityManager.createQuery(sql).getSingleResult();
 		return (quantidade > 0);
 	}
+	
+//	@PrePersist
+//	@PreUpdate
+//	public void antesDeSalvar(Cliente cliente) {
+//		cliente.setCpf(cliente.getCpf().replace(".", ""));
+//	}
+//	
+//	@PostLoad
+//	public void depoisDeCarregar(Cliente cliente) {
+//		cliente.setCpf("999.999.999-99");
+//	}
 }

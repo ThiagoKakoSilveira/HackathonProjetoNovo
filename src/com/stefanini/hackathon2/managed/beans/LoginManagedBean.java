@@ -21,19 +21,19 @@ public class LoginManagedBean {
 	private LoginServico servico;
 	
 	public LoginManagedBean(){
-		
+//		login = new Login();
 	}
 	
 	public void salvar(){
 		servico.salvar(getLogin());
-		Mensageiro.notificaInformacao("Parabéns!", "Login cadastrado com sucesso!");
+		Mensageiro.notificaInformacao("ParabÃ©ns", "Login cadastrado com sucesso!");
 		carregarListaDeLogins();
 		limpar();
 	}
 	
 	public void deletar(){
 		servico.deletar(getLogin());
-		Mensageiro.notificaInformacao("Parabéns!", "Login cadastrado com sucesso!");
+		Mensageiro.notificaInformacao("ParabÃ©ns", "Login cadastrado com sucesso!");
 		carregarListaDeLogins();
 		limpar();
 	}
@@ -48,6 +48,9 @@ public class LoginManagedBean {
 	}
 
 	public Login getLogin() {
+		if(login == null){
+			limpar();
+		}
 		return login;
 	}
 
@@ -56,6 +59,9 @@ public class LoginManagedBean {
 	}
 
 	public List<Login> getListaLogin() {
+		if(listaLogin == null){
+			carregarListaDeLogins();
+		}
 		return listaLogin;
 	}
 

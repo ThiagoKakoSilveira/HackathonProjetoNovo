@@ -22,6 +22,9 @@ public class Livro {
 	@Column(nullable=false)
 	private Integer paginas;
 	
+	@Column(nullable=false)
+	private Integer quantidadeEstoque;
+	
 //	@Column(nullable=false)
 //	private boolean status;
 	
@@ -63,6 +66,8 @@ public class Livro {
 		this.paginas = paginas;
 	}
 	
+	
+	
 //	public boolean isStatus() {
 //		return status;
 //	}
@@ -70,6 +75,14 @@ public class Livro {
 //	public void setStatus(boolean status) {
 //		this.status = status;
 //	}
+
+	public Integer getQuantidadeEstoque() {
+		return quantidadeEstoque;
+	}
+
+	public void setQuantidadeEstoque(Integer quantidadeEstoque) {
+		this.quantidadeEstoque = quantidadeEstoque;
+	}
 
 	@Override
 	public int hashCode() {

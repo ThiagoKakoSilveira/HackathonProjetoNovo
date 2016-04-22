@@ -9,7 +9,7 @@
 
 	<div style="height: 200px; width: 550px; overflow: auto;">
 		<p:dataTable selection="#{emprestimoManagedBean.emprestimo.livros}"
-			rowKey="#{livro.idLivro}" id="tabelaModalDeLivros" var="livro"
+			rowKey="#{livro.id}" id="tabelaModalDeLivros" var="livro"
 			value="#{livroManagedBean.listaDeLivrosCadastrados}"
 			emptyMessage="Não existem livros cadastrados"
 			style="padding-top:20px;">
@@ -19,7 +19,7 @@
 				style="width:16px;text-align:center" />
 
 			<p:column headerText="Id">
-				<h:outputText value="#{livro.idLivro}" />
+				<h:outputText value="#{livro.id}" />
 			</p:column>
 			<p:column headerText="Nome">
 				<h:outputText value="#{livro.nome}" />

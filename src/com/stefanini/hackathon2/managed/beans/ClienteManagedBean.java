@@ -25,14 +25,14 @@ public class ClienteManagedBean {
 	
 	public void salvar(){
 		servico.salvar(getCliente());
-		Mensageiro.notificaInformacao("Parabéns!", "Cliente cadastrada com sucesso!");
+		Mensageiro.notificaInformacao("ParabÃ©ns", "Cliente cadastrado com sucesso!");
 		carregaListaDeClientes();
 		limpar();
 	}
 	
 	public void deletar(Cliente cliente){
 		servico.deletar(cliente);
-		Mensageiro.notificaInformacao("Parabéns!", "Cliente deletada com sucesso");
+		Mensageiro.notificaInformacao("ParabÃ©ns", "Cliente cadastrado com sucesso!");
 		carregaListaDeClientes();
 		limpar();
 	}
@@ -66,4 +66,5 @@ public class ClienteManagedBean {
 	public void setListaClientes(List<Cliente> listaClientes) {
 		this.listaClientes = listaClientes;
 	}	
+	
 }
