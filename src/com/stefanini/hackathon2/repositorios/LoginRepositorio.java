@@ -5,7 +5,9 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
+import com.stefanini.hackathon2.entidades.Funcionario;
 import com.stefanini.hackathon2.entidades.Login;
+import com.stefanini.hackathon2.util.Mensageiro;
 @SuppressWarnings("all")
 public class LoginRepositorio {
 	
@@ -29,8 +31,13 @@ public class LoginRepositorio {
 		entityManager.remove(login);
 	}
 	
-	public void atualizar(Login login){
-		entityManager.merge(login);
+	public void atualizar(Login login){		
+		entityManager.merge(login);		
+	}
+	
+	public boolean existeAcessoNobanco(Login login){
+		int acessos = entityManager.createNativeQuery("select * from login where acesso ="+login.getAcesso()).getFirstResult();
+		return (acessos > 0);
 	}
 	
 	public Login pesquisarPorId(Integer id){

@@ -19,7 +19,7 @@ public class Login {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer idLogin;
-	@Column(nullable=false)
+	@Column(nullable=false, unique=true)
 	private String acesso;
 	@Column(nullable=false)
 	private String senha;

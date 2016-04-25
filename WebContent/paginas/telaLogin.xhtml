@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:p="http://primefaces.org/ui"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+<title>Hackathon2</title>
+</h:head>
+<h:body>
+	<h:outputStylesheet library="styles" name="primefacesOverride.css"  />
+	<div id="formLogin" style="margin:200px 500px; ">
+		<h:form id="formAcesso">
+			<p:panelGrid columns="3">			
+				<p:outputLabel for="acesso" value="Login: "  />
+				<p:inputText id="acesso" requiredMessage="Campo obrigatório" required="true" 
+								value="#{sessaoManagedBean.acesso}"/>
+				<p:message for="acesso" />				
+				
+				<p:outputLabel for="senha" value="Senha: "/>
+				<p:inputText id="senha" requiredMessage="Campo obrigatório" required="true" 
+								value="#{sessaoManagedBean.senha}"/>
+				<p:message for="senha" />
+				
+				<p:outputLabel/>								
+				<p:commandButton value="Logar" process="@form" action="#{sessaoManagedBean.logar()}" icon="fa fa-fw fa-chain-broken" />				
+			</p:panelGrid>
+		</h:form>
+	</div>
+
+</h:body>
+</html>

@@ -19,25 +19,32 @@
 		    	size="130" minSize="130" maxSize="130">
 			    <h:form>
 				    <p:menubar>
-				        <p:menuitem value="Principal" url="/paginas/principal.xhtml" icon="fa fa-fw fa-home" />
+				        <p:menuitem value="Principal" url="/paginas/principal.xhtml" icon="fa fa-fw fa-home"
+			        				rendered="#{!sessaoManagedBean.login.logado}" />
 				 
 				        <p:submenu label="Cadastros" icon="fa fa-fw fa-edit">
-			                <p:menuitem value="Livros" icon="fa fa-fw fa-book" url="/paginas/livro.xhtml" />
+			                <p:menuitem value="Livros" icon="fa fa-fw fa-book" url="/paginas/livro.xhtml"
+			                			rendered="#{sessaoManagedBean.login.admin || sessaoManagedBean.login.livro}" />
 				            <p:separator />
-			                <p:menuitem value="Clientes" icon="fa fa-fw fa-user-plus" url="/paginas/cliente.xhtml" />
+			                <p:menuitem value="Clientes" icon="fa fa-fw fa-user-plus" url="/paginas/cliente.xhtml" 
+			                			rendered="#{sessaoManagedBean.login.admin || sessaoManagedBean.login.pessoa}"/>
 			                <p:separator />
-			                <p:menuitem value="Funcionários" icon="fa fa-fw fa-users" url="/paginas/funcionario.xhtml" />
+			                <p:menuitem value="Funcionários" icon="fa fa-fw fa-users" url="/paginas/funcionario.xhtml" 
+			                			rendered="#{sessaoManagedBean.login.admin}"/>
 			                <p:separator />
-			                <p:menuitem value="Login de Acesso" icon="fa fa-fw fa-unlock-alt" url="/paginas/login.xhtml" />
+			                <p:menuitem value="Login de Acesso" icon="fa fa-fw fa-unlock-alt" url="/paginas/login.xhtml" 
+			                			rendered="#{sessaoManagedBean.login.admin}"/>
 				        </p:submenu>
 				        
 				        <p:submenu label="Movimentos" icon="fa fa-fw fa-refresh">
-			                <p:menuitem value="Empréstimos" icon="fa fa-fw fa-exchange" url="/paginas/emprestimo.xhtml" />
+			                <p:menuitem value="Empréstimos" icon="fa fa-fw fa-exchange" url="/paginas/emprestimo.xhtml"
+			                			rendered="#{sessaoManagedBean.login.admin || sessaoManagedBean.login.emprestimo}" />
 				        </p:submenu>
 				 
 				        <f:facet name="options">
 				            <p:inputText style="margin-right:10px" placeholder="buscar"/>
-				            <p:commandButton type="button" value="Sair da aplicação" icon="fa fa-fw fa-power-off" />
+				            <p:commandButton type="button" value="Sair da aplicação" icon="fa fa-fw fa-power-off" 
+			            					action="#{sessaoManagedBean.sair}" rendered="#{sessaoManagedBean.login.logado}"/>
 				        </f:facet>
 				    </p:menubar>
 			    </h:form>
